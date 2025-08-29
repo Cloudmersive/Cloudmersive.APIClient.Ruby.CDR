@@ -1,0 +1,11 @@
+﻿{
+
+    "gemName": "cloudmersive-spam-detection-api-client",
+    "gemLicense": "Apache 2.0",
+    "gemVersion": "2.3.0",
+    "gemHomepage": "https://cloudmersive.com/spam-detection-api",
+    "gemSummary": "Scan content for spam.",
+    "gemDescription": "Spam Detection API lets you scan content for spam using AI.",
+    "gemAuthor": "Cloudmersive"
+
+}
