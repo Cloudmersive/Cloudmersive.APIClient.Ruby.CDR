@@ -17,6 +17,7 @@ require 'cloudmersive-cdr-api-client/version'
 require 'cloudmersive-cdr-api-client/configuration'
 
 # Models
+require 'cloudmersive-cdr-api-client/models/problem_details'
 
 # APIs
 require 'cloudmersive-cdr-api-client/api/file_sanitization_api'

@@ -33,24 +33,72 @@ describe 'FileSanitizationApi' do
   end
 
   # unit tests for file
-  # Complete Content Disarm and Reconstruction on an Input File, and output in same file format
+  # Content Disarm and Reconstruction on a File
   # Processes the input file via CDR to produce a secured output file.  Input content is parsed, disarmed, and then reconstructed into a new output file with the same file format as the input.
   # @param [Hash] opts the optional parameters
   # @option opts [File] :input_file Input document, or photos of a document, to extract data from
-  # @return [nil]
+  # @return [String]
   describe 'file test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
     end
   end
 
+  # unit tests for file_advanced
+  # Advanced Content Disarm and Reconstruction on a File
+  # Processes the input file via CDR to produce a secured output file with advanced scan options and response headers containing scan metadata.
+  # @param [Hash] opts the optional parameters
+  # @option opts [BOOLEAN] :allow_executables Set to false to block executable files (EXE, DLL, etc.)
+  # @option opts [BOOLEAN] :allow_invalid_files Set to false to block files that are not valid for their detected type
+  # @option opts [BOOLEAN] :allow_scripts Set to false to block script files. PDF and Office macro sanitization still runs regardless.
+  # @option opts [BOOLEAN] :allow_password_protected_files Set to false to block password-protected files
+  # @option opts [BOOLEAN] :allow_macros Set to false to block files containing macros. Office macro removal still runs regardless.
+  # @option opts [BOOLEAN] :allow_xml_external_entities Set to false to block XML files with external entity references (XXE)
+  # @option opts [BOOLEAN] :allow_insecure_deserialization Set to false to block files with insecure deserialization patterns
+  # @option opts [BOOLEAN] :allow_html Set to false to block HTML files
+  # @option opts [BOOLEAN] :allow_unsafe_archives Set to false to block archive files flagged as unsafe (e.g., zip bombs)
+  # @option opts [BOOLEAN] :allow_ole_embedded_object Set to false to block files with embedded OLE objects
+  # @option opts [BOOLEAN] :allow_unwanted_action Set to false to block files with unwanted actions
+  # @option opts [String] :restrict_file_types Comma-separated list of allowed file extensions (e.g., \&quot;.pdf,.docx,.xlsx\&quot;). Files not matching will be blocked.
+  # @option opts [File] :input_file Input document to CDR process
+  # @return [String]
+  describe 'file_advanced test' do
+    it 'should work' do
+      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+    end
+  end
+
   # unit tests for file_to_pdf
-  # Complete Content Disarm and Reconstruction on an Input File with PDF/A Output
+  # Content Disarm and Reconstruction on a File with PDFA Output
   # Processes the input file via CDR to produce a secured PDF/A output file.  Input content is parsed, disarmed, and then reconstructed into a new PDF/A output file.
   # @param [Hash] opts the optional parameters
   # @option opts [File] :input_file Input document, or photos of a document, to extract data from
-  # @return [nil]
+  # @return [String]
   describe 'file_to_pdf test' do
+    it 'should work' do
+      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+    end
+  end
+
+  # unit tests for file_to_pdf_advanced
+  # Advanced Content Disarm and Reconstruction on a File with PDFA Output
+  # Processes the input file via CDR to produce a secured PDF/A output file with advanced scan options and response headers containing scan metadata.
+  # @param [Hash] opts the optional parameters
+  # @option opts [BOOLEAN] :allow_executables Set to false to block executable files (EXE, DLL, etc.)
+  # @option opts [BOOLEAN] :allow_invalid_files Set to false to block files that are not valid for their detected type
+  # @option opts [BOOLEAN] :allow_scripts Set to false to block script files. PDF and Office macro sanitization still runs regardless.
+  # @option opts [BOOLEAN] :allow_password_protected_files Set to false to block password-protected files
+  # @option opts [BOOLEAN] :allow_macros Set to false to block files containing macros. Office macro removal still runs regardless.
+  # @option opts [BOOLEAN] :allow_xml_external_entities Set to false to block XML files with external entity references (XXE)
+  # @option opts [BOOLEAN] :allow_insecure_deserialization Set to false to block files with insecure deserialization patterns
+  # @option opts [BOOLEAN] :allow_html Set to false to block HTML files
+  # @option opts [BOOLEAN] :allow_unsafe_archives Set to false to block archive files flagged as unsafe (e.g., zip bombs)
+  # @option opts [BOOLEAN] :allow_ole_embedded_object Set to false to block files with embedded OLE objects
+  # @option opts [BOOLEAN] :allow_unwanted_action Set to false to block files with unwanted actions
+  # @option opts [String] :restrict_file_types Comma-separated list of allowed file extensions (e.g., \&quot;.pdf,.docx,.xlsx\&quot;). Files not matching will be blocked.
+  # @option opts [File] :input_file Input document to CDR process
+  # @return [String]
+  describe 'file_to_pdf_advanced test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
     end

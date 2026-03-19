@@ -19,21 +19,21 @@ module CloudmersiveCdrApiClient
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Complete Content Disarm and Reconstruction on an Input File, and output in same file format
+    # Content Disarm and Reconstruction on a File
     # Processes the input file via CDR to produce a secured output file.  Input content is parsed, disarmed, and then reconstructed into a new output file with the same file format as the input.
     # @param [Hash] opts the optional parameters
     # @option opts [File] :input_file Input document, or photos of a document, to extract data from
-    # @return [nil]
+    # @return [String]
     def file(opts = {})
-      file_with_http_info(opts)
-      nil
+      data, _status_code, _headers = file_with_http_info(opts)
+      data
     end
 
-    # Complete Content Disarm and Reconstruction on an Input File, and output in same file format
+    # Content Disarm and Reconstruction on a File
     # Processes the input file via CDR to produce a secured output file.  Input content is parsed, disarmed, and then reconstructed into a new output file with the same file format as the input.
     # @param [Hash] opts the optional parameters
     # @option opts [File] :input_file Input document, or photos of a document, to extract data from
-    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Fixnum, Hash)>] String data, response status code and response headers
     def file_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FileSanitizationApi.file ...'
@@ -46,6 +46,8 @@ module CloudmersiveCdrApiClient
 
       # header parameters
       header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/octet-stream'])
       # HTTP header 'Content-Type'
       header_params['Content-Type'] = @api_client.select_header_content_type(['multipart/form-data'])
 
@@ -61,27 +63,115 @@ module CloudmersiveCdrApiClient
         :query_params => query_params,
         :form_params => form_params,
         :body => post_body,
-        :auth_names => auth_names)
+        :auth_names => auth_names,
+        :return_type => 'String')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: FileSanitizationApi#file\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
-    # Complete Content Disarm and Reconstruction on an Input File with PDF/A Output
-    # Processes the input file via CDR to produce a secured PDF/A output file.  Input content is parsed, disarmed, and then reconstructed into a new PDF/A output file.
+    # Advanced Content Disarm and Reconstruction on a File
+    # Processes the input file via CDR to produce a secured output file with advanced scan options and response headers containing scan metadata.
     # @param [Hash] opts the optional parameters
-    # @option opts [File] :input_file Input document, or photos of a document, to extract data from
-    # @return [nil]
-    def file_to_pdf(opts = {})
-      file_to_pdf_with_http_info(opts)
-      nil
+    # @option opts [BOOLEAN] :allow_executables Set to false to block executable files (EXE, DLL, etc.)
+    # @option opts [BOOLEAN] :allow_invalid_files Set to false to block files that are not valid for their detected type
+    # @option opts [BOOLEAN] :allow_scripts Set to false to block script files. PDF and Office macro sanitization still runs regardless.
+    # @option opts [BOOLEAN] :allow_password_protected_files Set to false to block password-protected files
+    # @option opts [BOOLEAN] :allow_macros Set to false to block files containing macros. Office macro removal still runs regardless.
+    # @option opts [BOOLEAN] :allow_xml_external_entities Set to false to block XML files with external entity references (XXE)
+    # @option opts [BOOLEAN] :allow_insecure_deserialization Set to false to block files with insecure deserialization patterns
+    # @option opts [BOOLEAN] :allow_html Set to false to block HTML files
+    # @option opts [BOOLEAN] :allow_unsafe_archives Set to false to block archive files flagged as unsafe (e.g., zip bombs)
+    # @option opts [BOOLEAN] :allow_ole_embedded_object Set to false to block files with embedded OLE objects
+    # @option opts [BOOLEAN] :allow_unwanted_action Set to false to block files with unwanted actions
+    # @option opts [String] :restrict_file_types Comma-separated list of allowed file extensions (e.g., \&quot;.pdf,.docx,.xlsx\&quot;). Files not matching will be blocked.
+    # @option opts [File] :input_file Input document to CDR process
+    # @return [String]
+    def file_advanced(opts = {})
+      data, _status_code, _headers = file_advanced_with_http_info(opts)
+      data
     end
 
-    # Complete Content Disarm and Reconstruction on an Input File with PDF/A Output
+    # Advanced Content Disarm and Reconstruction on a File
+    # Processes the input file via CDR to produce a secured output file with advanced scan options and response headers containing scan metadata.
+    # @param [Hash] opts the optional parameters
+    # @option opts [BOOLEAN] :allow_executables Set to false to block executable files (EXE, DLL, etc.)
+    # @option opts [BOOLEAN] :allow_invalid_files Set to false to block files that are not valid for their detected type
+    # @option opts [BOOLEAN] :allow_scripts Set to false to block script files. PDF and Office macro sanitization still runs regardless.
+    # @option opts [BOOLEAN] :allow_password_protected_files Set to false to block password-protected files
+    # @option opts [BOOLEAN] :allow_macros Set to false to block files containing macros. Office macro removal still runs regardless.
+    # @option opts [BOOLEAN] :allow_xml_external_entities Set to false to block XML files with external entity references (XXE)
+    # @option opts [BOOLEAN] :allow_insecure_deserialization Set to false to block files with insecure deserialization patterns
+    # @option opts [BOOLEAN] :allow_html Set to false to block HTML files
+    # @option opts [BOOLEAN] :allow_unsafe_archives Set to false to block archive files flagged as unsafe (e.g., zip bombs)
+    # @option opts [BOOLEAN] :allow_ole_embedded_object Set to false to block files with embedded OLE objects
+    # @option opts [BOOLEAN] :allow_unwanted_action Set to false to block files with unwanted actions
+    # @option opts [String] :restrict_file_types Comma-separated list of allowed file extensions (e.g., \&quot;.pdf,.docx,.xlsx\&quot;). Files not matching will be blocked.
+    # @option opts [File] :input_file Input document to CDR process
+    # @return [Array<(String, Fixnum, Hash)>] String data, response status code and response headers
+    def file_advanced_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: FileSanitizationApi.file_advanced ...'
+      end
+      # resource path
+      local_var_path = '/cdr/sanitization/file/advanced'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/octet-stream'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['multipart/form-data'])
+      header_params[:'allowExecutables'] = opts[:'allow_executables'] if !opts[:'allow_executables'].nil?
+      header_params[:'allowInvalidFiles'] = opts[:'allow_invalid_files'] if !opts[:'allow_invalid_files'].nil?
+      header_params[:'allowScripts'] = opts[:'allow_scripts'] if !opts[:'allow_scripts'].nil?
+      header_params[:'allowPasswordProtectedFiles'] = opts[:'allow_password_protected_files'] if !opts[:'allow_password_protected_files'].nil?
+      header_params[:'allowMacros'] = opts[:'allow_macros'] if !opts[:'allow_macros'].nil?
+      header_params[:'allowXmlExternalEntities'] = opts[:'allow_xml_external_entities'] if !opts[:'allow_xml_external_entities'].nil?
+      header_params[:'allowInsecureDeserialization'] = opts[:'allow_insecure_deserialization'] if !opts[:'allow_insecure_deserialization'].nil?
+      header_params[:'allowHtml'] = opts[:'allow_html'] if !opts[:'allow_html'].nil?
+      header_params[:'allowUnsafeArchives'] = opts[:'allow_unsafe_archives'] if !opts[:'allow_unsafe_archives'].nil?
+      header_params[:'allowOleEmbeddedObject'] = opts[:'allow_ole_embedded_object'] if !opts[:'allow_ole_embedded_object'].nil?
+      header_params[:'allowUnwantedAction'] = opts[:'allow_unwanted_action'] if !opts[:'allow_unwanted_action'].nil?
+      header_params[:'restrictFileTypes'] = opts[:'restrict_file_types'] if !opts[:'restrict_file_types'].nil?
+
+      # form parameters
+      form_params = {}
+      form_params['InputFile'] = opts[:'input_file'] if !opts[:'input_file'].nil?
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['Apikey']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'String')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: FileSanitizationApi#file_advanced\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+    # Content Disarm and Reconstruction on a File with PDFA Output
     # Processes the input file via CDR to produce a secured PDF/A output file.  Input content is parsed, disarmed, and then reconstructed into a new PDF/A output file.
     # @param [Hash] opts the optional parameters
     # @option opts [File] :input_file Input document, or photos of a document, to extract data from
-    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    # @return [String]
+    def file_to_pdf(opts = {})
+      data, _status_code, _headers = file_to_pdf_with_http_info(opts)
+      data
+    end
+
+    # Content Disarm and Reconstruction on a File with PDFA Output
+    # Processes the input file via CDR to produce a secured PDF/A output file.  Input content is parsed, disarmed, and then reconstructed into a new PDF/A output file.
+    # @param [Hash] opts the optional parameters
+    # @option opts [File] :input_file Input document, or photos of a document, to extract data from
+    # @return [Array<(String, Fixnum, Hash)>] String data, response status code and response headers
     def file_to_pdf_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FileSanitizationApi.file_to_pdf ...'
@@ -94,6 +184,8 @@ module CloudmersiveCdrApiClient
 
       # header parameters
       header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/octet-stream'])
       # HTTP header 'Content-Type'
       header_params['Content-Type'] = @api_client.select_header_content_type(['multipart/form-data'])
 
@@ -109,9 +201,97 @@ module CloudmersiveCdrApiClient
         :query_params => query_params,
         :form_params => form_params,
         :body => post_body,
-        :auth_names => auth_names)
+        :auth_names => auth_names,
+        :return_type => 'String')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: FileSanitizationApi#file_to_pdf\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+    # Advanced Content Disarm and Reconstruction on a File with PDFA Output
+    # Processes the input file via CDR to produce a secured PDF/A output file with advanced scan options and response headers containing scan metadata.
+    # @param [Hash] opts the optional parameters
+    # @option opts [BOOLEAN] :allow_executables Set to false to block executable files (EXE, DLL, etc.)
+    # @option opts [BOOLEAN] :allow_invalid_files Set to false to block files that are not valid for their detected type
+    # @option opts [BOOLEAN] :allow_scripts Set to false to block script files. PDF and Office macro sanitization still runs regardless.
+    # @option opts [BOOLEAN] :allow_password_protected_files Set to false to block password-protected files
+    # @option opts [BOOLEAN] :allow_macros Set to false to block files containing macros. Office macro removal still runs regardless.
+    # @option opts [BOOLEAN] :allow_xml_external_entities Set to false to block XML files with external entity references (XXE)
+    # @option opts [BOOLEAN] :allow_insecure_deserialization Set to false to block files with insecure deserialization patterns
+    # @option opts [BOOLEAN] :allow_html Set to false to block HTML files
+    # @option opts [BOOLEAN] :allow_unsafe_archives Set to false to block archive files flagged as unsafe (e.g., zip bombs)
+    # @option opts [BOOLEAN] :allow_ole_embedded_object Set to false to block files with embedded OLE objects
+    # @option opts [BOOLEAN] :allow_unwanted_action Set to false to block files with unwanted actions
+    # @option opts [String] :restrict_file_types Comma-separated list of allowed file extensions (e.g., \&quot;.pdf,.docx,.xlsx\&quot;). Files not matching will be blocked.
+    # @option opts [File] :input_file Input document to CDR process
+    # @return [String]
+    def file_to_pdf_advanced(opts = {})
+      data, _status_code, _headers = file_to_pdf_advanced_with_http_info(opts)
+      data
+    end
+
+    # Advanced Content Disarm and Reconstruction on a File with PDFA Output
+    # Processes the input file via CDR to produce a secured PDF/A output file with advanced scan options and response headers containing scan metadata.
+    # @param [Hash] opts the optional parameters
+    # @option opts [BOOLEAN] :allow_executables Set to false to block executable files (EXE, DLL, etc.)
+    # @option opts [BOOLEAN] :allow_invalid_files Set to false to block files that are not valid for their detected type
+    # @option opts [BOOLEAN] :allow_scripts Set to false to block script files. PDF and Office macro sanitization still runs regardless.
+    # @option opts [BOOLEAN] :allow_password_protected_files Set to false to block password-protected files
+    # @option opts [BOOLEAN] :allow_macros Set to false to block files containing macros. Office macro removal still runs regardless.
+    # @option opts [BOOLEAN] :allow_xml_external_entities Set to false to block XML files with external entity references (XXE)
+    # @option opts [BOOLEAN] :allow_insecure_deserialization Set to false to block files with insecure deserialization patterns
+    # @option opts [BOOLEAN] :allow_html Set to false to block HTML files
+    # @option opts [BOOLEAN] :allow_unsafe_archives Set to false to block archive files flagged as unsafe (e.g., zip bombs)
+    # @option opts [BOOLEAN] :allow_ole_embedded_object Set to false to block files with embedded OLE objects
+    # @option opts [BOOLEAN] :allow_unwanted_action Set to false to block files with unwanted actions
+    # @option opts [String] :restrict_file_types Comma-separated list of allowed file extensions (e.g., \&quot;.pdf,.docx,.xlsx\&quot;). Files not matching will be blocked.
+    # @option opts [File] :input_file Input document to CDR process
+    # @return [Array<(String, Fixnum, Hash)>] String data, response status code and response headers
+    def file_to_pdf_advanced_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: FileSanitizationApi.file_to_pdf_advanced ...'
+      end
+      # resource path
+      local_var_path = '/cdr/sanitization/file/to/pdf/advanced'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/octet-stream'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['multipart/form-data'])
+      header_params[:'allowExecutables'] = opts[:'allow_executables'] if !opts[:'allow_executables'].nil?
+      header_params[:'allowInvalidFiles'] = opts[:'allow_invalid_files'] if !opts[:'allow_invalid_files'].nil?
+      header_params[:'allowScripts'] = opts[:'allow_scripts'] if !opts[:'allow_scripts'].nil?
+      header_params[:'allowPasswordProtectedFiles'] = opts[:'allow_password_protected_files'] if !opts[:'allow_password_protected_files'].nil?
+      header_params[:'allowMacros'] = opts[:'allow_macros'] if !opts[:'allow_macros'].nil?
+      header_params[:'allowXmlExternalEntities'] = opts[:'allow_xml_external_entities'] if !opts[:'allow_xml_external_entities'].nil?
+      header_params[:'allowInsecureDeserialization'] = opts[:'allow_insecure_deserialization'] if !opts[:'allow_insecure_deserialization'].nil?
+      header_params[:'allowHtml'] = opts[:'allow_html'] if !opts[:'allow_html'].nil?
+      header_params[:'allowUnsafeArchives'] = opts[:'allow_unsafe_archives'] if !opts[:'allow_unsafe_archives'].nil?
+      header_params[:'allowOleEmbeddedObject'] = opts[:'allow_ole_embedded_object'] if !opts[:'allow_ole_embedded_object'].nil?
+      header_params[:'allowUnwantedAction'] = opts[:'allow_unwanted_action'] if !opts[:'allow_unwanted_action'].nil?
+      header_params[:'restrictFileTypes'] = opts[:'restrict_file_types'] if !opts[:'restrict_file_types'].nil?
+
+      # form parameters
+      form_params = {}
+      form_params['InputFile'] = opts[:'input_file'] if !opts[:'input_file'].nil?
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['Apikey']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'String')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: FileSanitizationApi#file_to_pdf_advanced\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
